@@ -88,8 +88,6 @@
 		return false;
 	}
 
-    return false;
-	}	
 
 	function logout_user()
 	{

@@ -1,5 +1,6 @@
 <?php
 	require("../forced.php");
+	require("../lib_login.php");
 
 	if(! ($user_data = search_user("####USERNAME####")))
 	{
