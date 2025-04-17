@@ -3,10 +3,26 @@
 
 	$UPLOADED = 0;
 
-	if(isset($_FILES["filecontent"]) && isset($_REQUEST["description"]))
-	{
-		move_uploaded_file($_FILES["filecontent"]["tmp_name"], "/var/www/html/files/".$__connected["USERNAME"]."/".$_FILES["filecontent"]["name"]);
-		file_put_contents("/var/www/html/files/".$__connected["USERNAME"]."/".$_FILES["filecontent"]["name"].".alexdescfile", $_REQUEST["description"]);
+	if (isset($_FILES["filecontent"]) && isset($_REQUEST["description"])) {
+		$allowed_types = ['image/jpeg', 'image/png', 'application/pdf'];
+		$max_size = 2 * 1024 * 1024; // 2 MB
+
+		if (!in_array($_FILES["filecontent"]["type"], $allowed_types)) {
+			die("Type de fichier non autorisé");
+		}
+
+		if ($_FILES["filecontent"]["size"] > $max_size) {
+			die("Fichier trop volumineux");
+		}
+
+		$filename = basename($_FILES["filecontent"]["name"]);
+		if (!preg_match('/^[a-zA-Z0-9._-]+$/', $filename)) {
+			die("Nom de fichier invalide");
+		}
+
+		$description = htmlspecialchars($_REQUEST["description"], ENT_QUOTES, 'UTF-8');
+		move_uploaded_file($_FILES["filecontent"]["tmp_name"], "/var/www/html/files/".$__connected["USERNAME"]."/".$filename);
+		file_put_contents("/var/www/html/files/".$__connected["USERNAME"]."/".$filename.".alexdescfile", $description);
 		$UPLOADED = 1;
 	}
 ?>

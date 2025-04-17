@@ -10,6 +10,10 @@
 	}
 
 	$file = basename($_GET["file"]);
+	if (!preg_match('/^[a-zA-Z0-9._-]+$/', $file)) {
+		die("Nom de fichier invalide");
+	}
+
 	$filepath = "/var/www/html/files/".$__connected["USERNAME"]."/".$file;
 
 	if (file_exists($filepath)) {

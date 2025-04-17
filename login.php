@@ -4,10 +4,13 @@
 
 	require("forced.php");
 
-	if(isset($_REQUEST["username"]) && isset($_REQUEST["password"]))
-	{
-		if(login_user($_REQUEST["username"], $_REQUEST["password"])) header("Location: /");
-		else $LOGIN_FAILED = 1;
+	if (isset($_REQUEST["username"]) && isset($_REQUEST["password"])) {
+		if (login_user($_REQUEST["username"], $_REQUEST["password"])) {
+			header("Location: /");
+			exit();
+		} else {
+			$LOGIN_FAILED = 1;
+		}
 	}
 ?>
 <html>
