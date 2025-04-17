@@ -3,7 +3,7 @@
 	$LOGIN_FAILED = 0;
 
 	require("forced.php");
-	require_once("lib_login.php");
+	require("lib_login.php");
 
 	if (
 		isset($_POST["username"]) &&
